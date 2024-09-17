@@ -36,7 +36,7 @@ const SignInForm = () => {
       </div>
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center text-sm">
-            Don`&apos;`t have an account?  Sign Up on Homepage first.
+            Don&apos;t have an account?  Sign Up on Homepage first.
         </div>
         <DialogClose asChild>
           <Button type="submit">Sign In</Button>

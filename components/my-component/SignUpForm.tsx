@@ -33,7 +33,7 @@ const SignUpForm = () => {
       </div>
       <div className="flex justify-between">
         <div className="flex items-center text-sm">
-            Already have an account? 
+            Already have an account?
             Sign In on Homepage instead.
         </div>
         <DialogClose asChild>
