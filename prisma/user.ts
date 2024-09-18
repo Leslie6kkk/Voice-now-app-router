@@ -1,6 +1,4 @@
-import prisma from "@/lib/prisma";
-
-; // Assuming you have your Prisma client setup
+import prisma from '@/lib/prisma'; // Assuming you have your Prisma client setup
 
 // Find user by email
 export const findUserByEmail = async (email: string) => {
