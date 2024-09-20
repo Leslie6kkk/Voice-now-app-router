@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { findUserByEmail } from '@/prisma/user';
 import bcrypt from 'bcrypt'; // For password comparison
+import { createSession } from '@/lib/session';
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
@@ -30,6 +31,7 @@ export async function POST(request: Request) {
         { status: 401 }
       );
     }
+    await createSession(existingUser.id.toString());
 
     // Assuming you want to return a success message
     return NextResponse.json(

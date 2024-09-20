@@ -75,7 +75,7 @@ const SignInDialog = () => {
       <DialogTrigger asChild>
         <Button>Sign In</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Sign In to Voice for a Poll!</DialogTitle>
           <DialogDescription>

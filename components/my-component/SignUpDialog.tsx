@@ -79,7 +79,7 @@ const SignUpDialog = () => {
       <DialogTrigger asChild>
         <Button>Sign Up</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Create a new Account!</DialogTitle>
         </DialogHeader>
