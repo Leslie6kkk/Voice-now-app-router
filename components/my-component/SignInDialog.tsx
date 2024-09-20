@@ -68,6 +68,9 @@ const SignInDialog = () => {
       });
     }
     setOpen(false);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (

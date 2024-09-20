@@ -61,3 +61,19 @@ export async function updateSession() {
 export function deleteSession() {
   cookies().delete('session');
 }
+
+export async function getSession() {
+  const sessionCookie = cookies().get('session')?.value;
+
+  if (!sessionCookie) {
+    return null;
+  }
+
+  const payload = (await decrypt(sessionCookie)) as SessionPayload;
+
+  if (!payload) {
+    return null;
+  }
+
+  return payload;
+}

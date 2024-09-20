@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { findUserByEmail } from '@/prisma/user';
+import { findUserByEmail } from '@/lib/user';
 import bcrypt from 'bcrypt'; // For password comparison
 import { createSession } from '@/lib/session';
 
