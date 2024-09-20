@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { findUserByEmail, createUser } from '@/prisma/user';
+import { findUserByEmail, createUser } from '@/lib/user';
 import bcrypt from 'bcrypt'; // For password hashing
 
 export async function POST(request: Request) {
