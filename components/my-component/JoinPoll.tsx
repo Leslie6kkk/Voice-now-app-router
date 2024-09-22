@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -10,8 +11,12 @@ import {
   DialogDescription,
 } from '../ui/dialog';
 import { Input } from '../ui/input';
+import { useRouter } from 'next/navigation';
 
 const JoinPoll = (props: { isSessionValid: Boolean }) => {
+  const [pollId, setPollId] = useState('');
+  const [link, setLink] = useState('');
+  const router = useRouter();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -37,13 +42,35 @@ const JoinPoll = (props: { isSessionValid: Boolean }) => {
         </DialogHeader>
         <div className="flex gap-4 items-center">
           <div className="text-md font-semibold w-52">Invite Link</div>
-          <Input placeholder="Paste your Link Here..." />
-          <Button className="w-42">Join By Link</Button>
+          <Input
+            type="url"
+            placeholder="Paste your Link Here..."
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+          />
+          <Button
+            className="w-42"
+            type="submit"
+            onClick={() => (window.location.href = link)}
+          >
+            Join By Link
+          </Button>
         </div>
         <div className="flex gap-4 items-center">
           <div className="text-md font-semibold w-32">Poll ID</div>
-          <Input placeholder="Input a valid Poll ID Here..." />
-          <Button className="w-42">Join By ID</Button>
+          <Input
+            type="number"
+            placeholder="Input a valid Poll ID Here..."
+            value={pollId}
+            onChange={(e) => setPollId(e.target.value)}
+          />
+          <Button
+            className="w-42"
+            type="submit"
+            onClick={() => pollId && router.push(`/poll/${pollId}`)}
+          >
+            Join By ID
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
