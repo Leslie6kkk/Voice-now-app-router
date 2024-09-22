@@ -76,7 +76,7 @@ const SignInDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Sign In</Button>
+        <Button variant="secondary">Sign In</Button>
       </DialogTrigger>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
