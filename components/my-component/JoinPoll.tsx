@@ -3,13 +3,14 @@
 import { Button } from '../ui/button';
 import { Dialog, DialogTrigger, DialogContent } from '../ui/dialog';
 
-const JoinPoll = () => {
+const JoinPoll = (props: { isSessionValid: Boolean }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
           variant="outline"
           className="w-72 h-72 rounded-3xl flex flex-col gap-4"
+          disabled={!props.isSessionValid}
         >
           <div className="text-xl font-mono">+ Vote for A Poll</div>
           <div className="text-sm font-mono text-wrap">

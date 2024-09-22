@@ -23,9 +23,8 @@ import {
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { verifySession } from '@/lib/dal';
 
-const CreatePoll = () => {
+const CreatePoll = (props: { isSessionValid: boolean }) => {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const [choices, setChoices] = useState<string[]>([]);
@@ -114,6 +113,7 @@ const CreatePoll = () => {
         <Button
           variant="outline"
           className="w-72 h-72 rounded-3xl flex flex-col gap-4"
+          disabled={!props.isSessionValid}
         >
           <div className="text-xl font-mono">+ Create A Poll</div>
           <div className="text-sm font-mono text-wrap">
