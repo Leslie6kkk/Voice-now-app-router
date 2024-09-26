@@ -1,9 +1,8 @@
 import { cache } from 'react';
-import { verifySession } from './dal';
 import prisma from './prisma';
 
 export const getPollById = cache(async (id: number) => {
-  return await prisma.poll.findUnique({
+  const poll = await prisma.poll.findUnique({
     where: {
       id,
     },
@@ -11,4 +10,8 @@ export const getPollById = cache(async (id: number) => {
       user: true,
     },
   });
+  if (!poll) {
+    return null;
+  }
+  return { ...poll, choices: poll?.choices as Record<string, number> };
 });

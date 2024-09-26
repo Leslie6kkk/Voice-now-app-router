@@ -1,10 +1,12 @@
 import { verifySession } from '@/lib/dal';
+import { SessionVerifyResponse } from '@/lib/definitions';
 import prisma from '@/lib/prisma';
+import { JsonObject } from '@prisma/client/runtime/library';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const session = await verifySession();
+    const session: SessionVerifyResponse = await verifySession();
 
     if (!session.isAuth || !session.userId) {
       return NextResponse.json(
@@ -28,10 +30,9 @@ export async function POST(request: Request) {
         name: name,
         description: description,
         userId: Number(session.userId),
-        choices: choices.map((choice: string) => ({
-          content: choice,
-          count: 0,
-        })),
+        choices: Object.fromEntries(
+          choices.map((choice: string) => [choice, 0])
+        ) as JsonObject,
       },
     });
 
