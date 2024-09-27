@@ -21,7 +21,12 @@ const PollStatus = ({ poll }: { poll: Poll }) => {
           className={`flex min-w-fit px-8 py-4 rounded-2xl justify-between ${index === 0 ? 'bg-red-400 font-semibold text-xl text-black' : 'bg-gray-500'}`}
         >
           <div>{choice.choice}</div>
-          <div>{((100 * choice.count) / poll.voteCount).toFixed(2)}%</div>
+          <div>
+            {poll.voteCount == 0
+              ? '0.00'
+              : ((100 * choice.count) / poll.voteCount).toFixed(2)}
+            %
+          </div>
         </div>
       ))}
       <Link

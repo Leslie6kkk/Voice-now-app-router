@@ -1,7 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Terminal } from 'lucide-react';
 import PollPage from '@/components/my-component/PollPage';
-import { getPollPageInfo } from '@/lib/vote';
+import { getPollPageInfo } from '@/lib/fetch-all';
 
 // this page may have three states:
 // 1. don't have a valid session: component disabled and current status hidden
