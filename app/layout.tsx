@@ -6,6 +6,7 @@ import SignUpDialog from '@/components/my-component/SignUpDialog';
 import SignInDialog from '@/components/my-component/SignInDialog';
 import LogOut from '@/components/my-component/LogOut';
 import { getUser } from '@/lib/user';
+import Link from 'next/link';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -36,7 +37,9 @@ export default async function RootLayout({
       >
         <main className="flex flex-col gap-12 px-24 py-8">
           <div className="flex justify-between">
-            <div className="text-2xl font-extrabold">VoiceNow</div>
+            <Link className="text-2xl font-extrabold" href="/">
+              VoiceNow
+            </Link>
             {user ? (
               <div className="flex gap-4 items-center">
                 <p>{user.email}</p>

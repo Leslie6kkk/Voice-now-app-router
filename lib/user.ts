@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'; // Assuming you have your Prisma client setup
 import { cache } from 'react';
 import { verifySession } from './dal';
+import { SessionVerifyResponse } from './definitions';
 
 // Find user by email
 export const findUserByEmail = async (email: string) => {
@@ -22,7 +23,7 @@ export const createUser = async (email: string, passwordHash: string) => {
 };
 
 export const getUser = cache(async () => {
-  const session = await verifySession();
+  const session: SessionVerifyResponse = await verifySession();
   if (!session.isAuth || !session.userId) {
     return null;
   }
