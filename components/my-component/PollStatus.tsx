@@ -21,10 +21,13 @@ const PollStatus = ({ poll }: { poll: Poll }) => {
           className={`flex min-w-fit px-8 py-4 rounded-2xl justify-between ${index === 0 ? 'bg-red-400 font-semibold text-xl text-black' : 'bg-gray-500'}`}
         >
           <div>{choice.choice}</div>
-          <div>{(100 * choice.count) / poll.voteCount}%</div>
+          <div>{((100 * choice.count) / poll.voteCount).toFixed(2)}%</div>
         </div>
       ))}
-      <Link className="self-end bg-green-800 font-semibold p-6 mt-8" href="/">
+      <Link
+        className="self-end bg-green-800 font-semibold p-6 mt-8 rounded-xl"
+        href="/"
+      >
         Back to HomePage
       </Link>
     </div>

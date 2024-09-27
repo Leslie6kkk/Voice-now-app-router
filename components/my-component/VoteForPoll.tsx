@@ -2,21 +2,26 @@
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
-import { Poll, UserOut } from '@/lib/definitions';
+import { Poll } from '@/lib/definitions';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 interface VoteForPollProps {
   poll: Poll;
-  user: UserOut | null;
-  setNewPoll: (value: Poll) => void;
+  sessionExist: boolean;
+  alreadyVoted: boolean;
 }
 
-const VoteForPoll = ({ poll, user, setNewPoll }: VoteForPollProps) => {
+const VoteForPoll = ({
+  poll,
+  sessionExist,
+  alreadyVoted,
+}: VoteForPollProps) => {
   const [chosenValue, setChosenValue] = useState('');
+
   const { toast } = useToast();
   const choiceList = Object.keys(poll.choices);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const onSubmit = async () => {
     if (chosenValue == '') {
       toast({
@@ -25,7 +30,7 @@ const VoteForPoll = ({ poll, user, setNewPoll }: VoteForPollProps) => {
         variant: 'destructive',
       });
       return;
-    } else if (!user) {
+    } else if (!sessionExist) {
       toast({
         title: 'Unauthorized',
         description: 'Please log in before submit!',
@@ -41,7 +46,7 @@ const VoteForPoll = ({ poll, user, setNewPoll }: VoteForPollProps) => {
           },
           body: JSON.stringify({ value: chosenValue }),
         });
-        const { message, newpoll } = await response.json();
+        const { message } = await response.json();
         if (response.status >= 300) {
           toast({
             title: 'Vote Failed',
@@ -53,7 +58,9 @@ const VoteForPoll = ({ poll, user, setNewPoll }: VoteForPollProps) => {
             title: 'Success',
             description: message || '',
           });
-          setNewPoll(newpoll);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
       } catch (error) {
         console.error('Submit error:', error);
@@ -81,7 +88,7 @@ const VoteForPoll = ({ poll, user, setNewPoll }: VoteForPollProps) => {
       </div>
 
       <RadioGroup
-        disabled={poll.isClosed || !user || isSubmitted}
+        disabled={poll.isClosed || !sessionExist || alreadyVoted}
         onValueChange={(value) => setChosenValue(value)}
       >
         {choiceList.length > 0 &&
@@ -90,25 +97,25 @@ const VoteForPoll = ({ poll, user, setNewPoll }: VoteForPollProps) => {
               className="flex items-center space-x-2 bg-green-300 text-black px-4 py-3 rounded-xl"
               key={index}
             >
-              {user ? (
+              {sessionExist && !alreadyVoted && !poll.isClosed ? (
                 <RadioGroupItem value={choice} id={choice} />
               ) : (
-                <div>{index + 1}</div>
+                <div>{index + 1}-</div>
               )}
-              <Label key={index} htmlFor={choice}>
+              <Label key={index} htmlFor={choice} className="font-semibold">
                 {choice}
               </Label>
             </div>
           ))}
       </RadioGroup>
-      {user && (
+      {sessionExist && !alreadyVoted && !poll.isClosed && (
         <Button
           variant="outline"
-          disabled={poll.isClosed || !user || isSubmitted}
-          className={`self-end flex items-center gap-2 ${isSubmitted ? 'text-green-500' : ''}`}
+          disabled={poll.isClosed || !sessionExist || alreadyVoted}
+          className="self-end flex items-center gap-2"
           onClick={onSubmit}
         >
-          {isSubmitted ? 'Submitted' : 'Submit'}
+          Submit
         </Button>
       )}
     </div>

@@ -1,14 +1,17 @@
-import { getPollById } from '@/lib/poll';
-import { getUser } from '@/lib/user';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Terminal } from 'lucide-react';
-import { Poll } from '@/lib/definitions';
 import PollPage from '@/components/my-component/PollPage';
+import { getPollPageInfo } from '@/lib/vote';
+
+// this page may have three states:
+// 1. don't have a valid session: component disabled and current status hidden
+// 2. session valid but user already voted: component disabled and current status shown
+// 3. session valid and user haven't voted: component abled and current status hidden
 
 const PollWithId = async ({ params }: { params: { id: string } }) => {
-  const pollId = params.id;
-  const poll: Poll | null = await getPollById(Number(pollId));
-  const user = await getUser();
+  const { poll, sessionExist, alreadyVoted } = await getPollPageInfo(
+    Number(params.id)
+  );
 
   if (poll === null) {
     return <div>This Poll is not Valid!</div>;
@@ -16,7 +19,7 @@ const PollWithId = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      {user === null && (
+      {!sessionExist && (
         <Alert className="w-fit px-8 text-base font-mono bg-yellow-200 text-black">
           <Terminal className="h-4 w-4" />
           <AlertTitle className="">Heads up!</AlertTitle>
@@ -25,7 +28,11 @@ const PollWithId = async ({ params }: { params: { id: string } }) => {
           </AlertDescription>
         </Alert>
       )}
-      <PollPage poll={poll} user={user} />
+      <PollPage
+        poll={poll}
+        sessionExist={sessionExist}
+        alreadyVoted={alreadyVoted}
+      />
     </div>
   );
 };
