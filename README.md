@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Voting App - VoiceNow!
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This Voting App allows users to create and participate in voting events. The app ensures secure user authentication, allows users to vote based on a unique event link or ID, and provides real-time voting results. It is designed with simplicity, focusing on core functionalities while ensuring a smooth user experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**:
+  - Users can sign up and log in with an email and password.
+  - Session management ensures users remain logged in across sessions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Poll Creation**:
+  - Users can create a poll with a name, description, and multiple choices.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Voting System**:
+  - Users can vote on a poll using a unique link or event ID.
+  - Each user can vote only once per event.
 
-## Learn More
+- **Real-time Voting Results**:
+  - Results are displayed immediately after a vote is cast.
 
-To learn more about Next.js, take a look at the following resources:
+- **Basic Dashboard**:
+  - Users can view polls they have created or participated in.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Bonus Features (Not Implemented)
+- Customized voting events with options for:
+  - Shuffle choices.
+  - Set vote ending time.
+  - Restrict voting to selected participants.
+  - Support for single-choice and multiple-choice polls.
+  - Selection vs. comment-based polls.
+- Email notifications to event participants once voting ends.
+- Google account signup and login integration.
+- Containerization and deployment using Docker/Kubernetes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Frontend/Backend**: [Next.js](https://nextjs.org/)
+  - Used both as the frontend framework and for handling API routes.
+  - **App Router**:
+    - Chosen for its support for nested routes, layouts, and server-side components.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+  - PostgreSQL was chosen for its scalability and performance.
+  - Managed via [Prisma](https://www.prisma.io/) ORM for simplified database queries and migrations.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **ORM**: [Prisma](https://www.prisma.io/)
+  - Prisma was used as the ORM to manage the database schema and handle interactions with PostgreSQL.
+
